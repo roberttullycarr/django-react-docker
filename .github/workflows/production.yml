@@ -34,7 +34,7 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: pull docker Image
+      - name: pull docker image
         continue-on-error: true
         run: docker pull ${{ secrets.DOCKER_IMAGE }}:latest
 
