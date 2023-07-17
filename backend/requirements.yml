@@ -1,0 +1,17 @@
+name: django-react-docker
+dependencies:
+  - python=3.11.4
+  - pip=23.1.2
+  - pip:
+      - gunicorn
+      - asgiref==3.7.2
+      - django==4.2.3
+      - flake8==6.0.0
+      - pillow==10.0.0
+      - django-cors-headers==4.2.0
+      - djangorestframework==3.14.0
+      - djangorestframework-simplejwt==5.2.2
+      - psycopg2-binary==2.9.6
+      - pytz==2023.3
+      - sqlparse==0.4.4
+      - debugpy==1.6.7
