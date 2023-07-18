@@ -22,25 +22,25 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Build and push docker image
-        run: docker build --tag=$GITHUB_RUN_NUMBER:$GITHUB_REF_NAME --cache-from=${{ secrets.DOCKER_IMAGE }}:latest .
+      - name: Build docker image
+        run: docker build ${{ secrets.DOCKER_IMAGE }}:latest .
 
       #lint 
 
-      - name: Retag docker image
-        run: docker tag $GITHUB_RUN_NUMBER:$GITHUB_REF_NAME ${{ secrets.DOCKER_IMAGE }}
+      # - name: Retag docker image
+      #   run: docker tag $GITHUB_RUN_NUMBER:$GITHUB_REF_NAME ${{ secrets.DOCKER_IMAGE }}
 
-      - name: push new images to docker
-        run: docker push ${{ secrets.DOCKER_IMAGE }}
+      # - name: push new images to docker
+      #   run: docker push ${{ secrets.DOCKER_IMAGE }}
 
-      - name: Retag Docker Image
-        run: docker tag ${{ secrets.DOCKER_IMAGE }}:latest ${{ secrets.DOCKER_IMAGE }}:main
+      # - name: Retag Docker Image
+      #   run: docker tag ${{ secrets.DOCKER_IMAGE }}:latest ${{ secrets.DOCKER_IMAGE }}:main
   
-      - name: Remove Build Image
-        run: docker rmi -f $GITHUB_RUN_NUMBER:$GITHUB_REF_NAME
+      # - name: Remove Build Image
+      #   run: docker rmi -f $GITHUB_RUN_NUMBER:$GITHUB_REF_NAME
 
-      - name: Remove Build Image
-        run: docker rmi -f ${{ secrets.DOCKER_IMAGE }}
+      # - name: Remove Build Image
+      #   run: docker rmi -f ${{ secrets.DOCKER_IMAGE }}
       
       - name: Make Envfile
         uses: SpicyPizza/create-envfile@v2.0
