@@ -11,6 +11,7 @@ RUN mkdir -p /scripts
 RUN mkdir -p /static-files
 RUN mkdir -p /media-files
 RUN mkdir -p /frontend
+RUN mkdir -p /frontend_tmp
 
 COPY ./backend /backend
 COPY ./scripts /scripts
@@ -22,11 +23,11 @@ ENV PATH /opt/conda/envs/django-react-docker/bin:$PATH
 RUN conda update -n base -c defaults conda
 RUN echo "source activate django-react-docker">~/.bashrc
 
-WORKDIR /frontend
-COPY ./frontend/package.json /frontend/
-COPY ./frontend/package-lock.json /frontend/
+WORKDIR /frontend_tmp
+COPY ./frontend/package.json /frontend_tmp/
+#COPY ./frontend/package-lock.json /frontend/
 RUN npm install
-COPY ./frontend /frontend
+COPY ./frontend /frontend_tmp
 RUN npm run build
 
 WORKDIR /backend
