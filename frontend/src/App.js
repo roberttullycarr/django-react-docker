@@ -4,9 +4,13 @@ import {useState, useEffect} from 'react';
 
 function App() {
   const [data, setData] = useState(null);
+  const url = 'http://188.166.84.114/backend/todos/';
+
+  console.log('data :>> ', data);
+  console.log('url :>> ', url);
 
   useEffect(() => {
-    fetch('http://188.166.84.114/backend/todos/')
+    fetch(url)
       .then(res => res.json())
       .then(responseData => setData(responseData));
   }, [])
