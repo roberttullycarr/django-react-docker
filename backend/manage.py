@@ -6,7 +6,7 @@ import sys
 
 def main():
     """Run administrative tasks."""
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'project_settings.settings')
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'project.settings')
 
         # start new section
     from django.conf import settings
