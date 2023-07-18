@@ -5,7 +5,7 @@ on:
     branches:    
       - main
 jobs:
-  Login to Docker:
+  Login:
     runs-on: self-hosted
     environment: production
     steps:
@@ -15,7 +15,7 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-  Pull Docker Image:
+  Pull:
     runs-on: self-hosted
     environment: production
     steps:
