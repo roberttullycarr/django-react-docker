@@ -26,8 +26,14 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DJANGO_DEBUG', "True") == "True"
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'backend']
-CSRF_TRUSTED_ORIGINS = ["http://188.166.84.114/", "http://localhost:3000"]
+ALLOWED_HOSTS = ['*']
+CORS_ALLOWED_ORIGINS = [
+    "http://188.166.84.114",
+    "http://localhost:3000",
+    "http://localhost:8000",
+    "http://0.0.0.0:8000",
+    "http://127.0.0.1:8000"
+]
 
 
 
