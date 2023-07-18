@@ -55,7 +55,7 @@ jobs:
       - name: Show file contents
         run: ls
 
-      - name: current app stop
+      - name: Stop Current App
         run: docker compose -f docker-compose.deploy.yml down
 
       - name: New app start
