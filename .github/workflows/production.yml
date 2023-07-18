@@ -39,7 +39,7 @@ jobs:
       - name: Remove Build Image
         run: docker rmi -f $GITHUB_RUN_NUMBER:$GITHUB_REF_NAME
       
-      - name: Make envfile
+      - name: Make Envfile
         uses: SpicyPizza/create-envfile@v2.0
         with:
           envkey_POSTGRES_HOST: ${{ secrets.POSTGRES_HOST }}
@@ -61,8 +61,4 @@ jobs:
 
       - name: New app start
         run: docker compose -f docker-compose.deploy.yml up -d
-      #   with:
-      #     context: .
-      #     push: ${{ github.event.base_ref =='refs/heads/main' && github.ref_type == 'tag' && !startsWith(github.ref, 'refs/tags/v0.')}}
-      #     tags: ${{ steps.metadata.outputs.tags }}
-      #     labels: ${{ steps.metadata.outputs.labels }}
+
