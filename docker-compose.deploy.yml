@@ -4,14 +4,14 @@ services:
   postgres:
     image: postgres:latest
     env_file:
-      - ./envs/prod.env
+      - ./prod.env
     volumes:
       - postgres_volume:/var/lib/postgresql/data
 
   backend:
     image: robertcarr/django-react-docker:latest
     env_file:
-      - ./envs/prod.env
+      - ./prod.env
     command: "sh /scripts/run.sh"
     depends_on:
       - postgres
