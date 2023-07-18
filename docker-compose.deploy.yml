@@ -9,7 +9,7 @@ services:
       - postgres_volume:/var/lib/postgresql/data
 
   backend:
-    image: robertcarr/django-react-docker:latest
+    image: roberttcarr/django-react-docker:latest
     env_file:
       - ./prod.env
     command: "sh /scripts/run.sh"
