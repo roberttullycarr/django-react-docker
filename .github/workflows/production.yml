@@ -33,7 +33,7 @@ jobs:
       - name: push new images to docker
         run: docker push ${{ secrets.DOCKER_IMAGE }}:latest
 
-      - name: Retag docker image
+      - name: Retag Docker Image
         run: docker tag ${{ secrets.DOCKER_IMAGE }}:latest ${{ secrets.DOCKER_IMAGE }}:main
   
       - name: Remove Build Image
