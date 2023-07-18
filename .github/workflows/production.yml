@@ -54,6 +54,12 @@ jobs:
       
       - name: Show file contents
         run: ls
+
+      - name: current app stop
+        run: docker compose -f docker-compose.deploy.yml down
+
+      - name: New app start
+        run: docker compose -f docker-compose.deploy.yml up -d
       #   with:
       #     context: .
       #     push: ${{ github.event.base_ref =='refs/heads/main' && github.ref_type == 'tag' && !startsWith(github.ref, 'refs/tags/v0.')}}
