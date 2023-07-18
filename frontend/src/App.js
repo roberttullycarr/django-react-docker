@@ -9,11 +9,11 @@ function App() {
   console.log('data :>> ', data);
   console.log('url :>> ', url);
 
-  useEffect(() => {
-    fetch(url)
-      .then(res => res.json())
-      .then(responseData => setData(responseData));
-  }, [])
+  // useEffect(() => {
+  //   fetch(url)
+  //     .then(res => res.json())
+  //     .then(responseData => setData(responseData));
+  // }, [])
 
 
   return (
