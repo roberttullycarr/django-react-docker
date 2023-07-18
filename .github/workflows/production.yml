@@ -22,19 +22,19 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Checkout
-        run: ls
-
       - name: Build and push docker image
         run: docker build --tag=$GITHUB_RUN_NUMBER:$GITHUB_REF_NAME --cache-from=${{ secrets.DOCKER_IMAGE }}:latest .
 
       #lint 
 
       - name: Retag docker image
-        run: docker tag $GITHUB_RUN_NUMBER:$GITHUB_REF_NAME ${{ secrets.DOCKER_IMAGE }}:main
+        run: docker tag $GITHUB_RUN_NUMBER:$GITHUB_REF_NAME ${{ secrets.DOCKER_IMAGE }}:latest
 
       - name: push new images to docker
-        run: docker push ${{ secrets.DOCKER_IMAGE }}:main
+        run: docker push ${{ secrets.DOCKER_IMAGE }}:latest
+
+      - name: Retag docker image
+        run: docker tag ${{ secrets.DOCKER_IMAGE }}:latest ${{ secrets.DOCKER_IMAGE }}:main
   
       - name: Remove Build Image
         run: docker rmi -f $GITHUB_RUN_NUMBER:$GITHUB_REF_NAME
