@@ -6,7 +6,7 @@ function App() {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    fetch('http://localhost:8000/backend/todos/')
+    fetch('http://188.166.84.114/backend/todos/')
       .then(res => res.json())
       .then(responseData => setData(responseData));
   }, [])
