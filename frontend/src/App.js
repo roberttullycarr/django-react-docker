@@ -6,7 +6,7 @@ function App() {
   const [data, setData] = useState(null);
   const url = 'http://188.166.84.114/backend/todos/';
 
-  console.log("Hopefully this creates only the images we want");
+  console.log("This is to test how to create no downtime deployment");
 
   useEffect(() => {
     fetch(url)
