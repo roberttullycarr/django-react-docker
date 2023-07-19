@@ -23,19 +23,19 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Build docker image
-        run: docker build --tag="$GITHUB_RUN_NUMBER":"$GITHUB_REF_NAME" --cache-from=${{ secrets.DOCKER_IMAGE }}:latest .
+        run: docker build --tag=$GITHUB_RUN_NUMBER:$GITHUB_REF_NAME --cache-from=${{ secrets.DOCKER_IMAGE }}:latest .
 
       - name: Retag Build Image
-        run: docker tag "$GITHUB_RUN_NUMBER":"$GITHUB_REF_NAME" ${{ secrets.DOCKER_IMAGE }}:main .
+        run: docker tag $GITHUB_RUN_NUMBER:$GITHUB_REF_NAME ${{ secrets.DOCKER_IMAGE }}:main .
 
       - name: Push build to docker
-        run: docket push ${{ secrets.DOCKER_IMAGE }}:main .
+        run: docker push ${{ secrets.DOCKER_IMAGE }}:main .
 
       - name: Cleanup Build Image
-        run: docker rmi -f "$GITHUB_RUN_NUMBER":"$GITHUB_REF_NAME"
+        run: docker rmi -f $GITHUB_RUN_NUMBER:$GITHUB_REF_NAME
 
       - name: Cleanup Build Image
-        run: docker-compose -p "$GITHUB_RUN_NUMBER" -f docker-compose.ci.yml down --remove-orphans
+        run: docker-compose -p $GITHUB_RUN_NUMBER -f docker-compose.ci.yml down --remove-orphans
       
       - name: Make Envfile
         uses: SpicyPizza/create-envfile@v2.0
