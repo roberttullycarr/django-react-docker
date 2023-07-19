@@ -6,7 +6,7 @@ function App() {
   const [data, setData] = useState(null);
   const url = 'http://188.166.84.114/backend/todos/';
 
-  console.log("newest version is live!");
+  console.log("Hopefully this creates only the images we want");
 
   useEffect(() => {
     fetch(url)
