@@ -5,7 +5,7 @@ on:
     branches:    
       - dev
 jobs:
-  Build:
+  Dev_Build:
     runs-on: self-hosted
     environment: production
     steps:
@@ -35,5 +35,5 @@ jobs:
         run: docker rmi -f $GITHUB_RUN_NUMBER:$GITHUB_REF_NAME
 
       - name: Cleanup temp build fragments
-        run: docker-compose -p $GITHUB_RUN_NUMBER -f docker-compose.ci.yml down --remove-orphans
+        run: docker compose -p $GITHUB_RUN_NUMBER -f docker-compose.ci.yml down --remove-orphans
 

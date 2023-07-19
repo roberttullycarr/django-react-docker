@@ -42,8 +42,6 @@ jobs:
       - name: Stop Current App
         run: docker compose -f docker-compose.deploy.yml down
 
-      - name: 
-
       - name: New app start
         run: docker compose -f docker-compose.deploy.yml up -d
 
