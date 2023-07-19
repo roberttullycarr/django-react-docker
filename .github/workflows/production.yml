@@ -15,9 +15,9 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: pull
-        continue-on-error: true
-        run: docker pull ${{ secrets.DOCKER_IMAGE }}
+      # - name: pull
+      #   continue-on-error: true
+      #   run: docker pull ${{ secrets.DOCKER_IMAGE }}
       
       - name: Checkout
         uses: actions/checkout@v3
