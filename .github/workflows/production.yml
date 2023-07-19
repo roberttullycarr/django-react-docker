@@ -15,18 +15,27 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      # - name: pull
-      #   continue-on-error: true
-      #   run: docker pull ${{ secrets.DOCKER_IMAGE }}
+      - name: pull
+        continue-on-error: true
+        run: docker pull ${{ secrets.DOCKER_IMAGE }}
       
       - name: Checkout
         uses: actions/checkout@v3
 
       - name: Build docker image
-        run: docker build -t ${{ secrets.DOCKER_IMAGE }}:latest .
+        run: docker build --tag="$GITHUB_RUN_NUMBER":"$GITHUB_REF_NAME" --cache-from=${{ secrets.DOCKER_IMAGE }}:latest .
 
-      - name: push new images to docker
-        run: docker push ${{ secrets.DOCKER_IMAGE }}:latest
+      - name: Retag Build Image
+        run: docker tag "$GITHUB_RUN_NUMBER":"$GITHUB_REF_NAME" ${{ secrets.DOCKER_IMAGE }}:main .
+
+      - name: Push build to docker
+        run: docket push ${{ secrets.DOCKER_IMAGE }}:main .
+
+      - name: Cleanup Build Image
+        run: docker rmi -f "$GITHUB_RUN_NUMBER":"$GITHUB_REF_NAME"
+
+      - name: Cleanup Build Image
+        run: docker-compose -p "$GITHUB_RUN_NUMBER" -f docker-compose.ci.yml down --remove-orphans
       
       - name: Make Envfile
         uses: SpicyPizza/create-envfile@v2.0
@@ -42,9 +51,6 @@ jobs:
           file_name: prod.env
           fail_on_empty: true
       
-      - name: Show file contents
-        run: ls
-
       - name: Stop Current App
         run: docker compose -f docker-compose.deploy.yml down
 
