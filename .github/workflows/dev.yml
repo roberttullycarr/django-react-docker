@@ -23,17 +23,17 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Build docker image
-        run: docker build --tag="$GITHUB_RUN_NUMBER":"$GITHUB_REF_NAME" --cache-from=${{ secrets.DOCKER_IMAGE }}:latest .
+        run: docker build --tag=$GITHUB_RUN_NUMBER:$GITHUB_REF_NAME --cache-from=${{ secrets.DOCKER_IMAGE }}:latest .
       
       - name: Retag build image
-        run: docker tag "$GITHUB_RUN_NUMBER":"$GITHUB_REF_NAME" ${{ secrets.DOCKER_IMAGE }}:latest
+        run: docker tag $GITHUB_RUN_NUMBER:$GITHUB_REF_NAME ${{ secrets.DOCKER_IMAGE }}:latest
 
       - name: Push Docker image
         run: docker push ${{ secrets.DOCKER_IMAGE }}:latest
 
       - name: Remove Temp Build Image
-        run: docker rmi -f "$GITHUB_RUN_NUMBER":"$GITHUB_REF_NAME"
+        run: docker rmi -f $GITHUB_RUN_NUMBER:$GITHUB_REF_NAME
 
       - name: Cleanup temp build fragments
-        run: docker compose -p "$GITHUB_RUN_NUMBER" -f docker-compose.ci.yml down --remove-orphans
+        run: docker compose -p $GITHUB_RUN_NUMBER -f docker-compose.ci.yml down --remove-orphans
 
