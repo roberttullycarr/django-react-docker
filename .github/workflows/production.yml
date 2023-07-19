@@ -17,26 +17,14 @@ jobs:
 
       - name: pull
         continue-on-error: true
-        run: docker pull ${{ secrets.DOCKER_IMAGE }}
+        run: docker pull ${{ secrets.DOCKER_IMAGE }}:latest
       
       - name: Checkout
         uses: actions/checkout@v3
 
       - name: Build docker image
-        run: docker build --tag=$GITHUB_RUN_NUMBER:$GITHUB_REF_NAME --cache-from=${{ secrets.DOCKER_IMAGE }}:latest .
+        run: docker build ${{ secrets.DOCKER_IMAGE }}:temp --cache-from=${{ secrets.DOCKER_IMAGE }}:main .
 
-      - name: Retag Build Image
-        run: docker tag $GITHUB_RUN_NUMBER:$GITHUB_REF_NAME ${{ secrets.DOCKER_IMAGE }}:main
-
-      - name: Push build to docker
-        run: docker push ${{ secrets.DOCKER_IMAGE }}:main
-
-      - name: Cleanup Build Image
-        run: docker rmi -f $GITHUB_RUN_NUMBER:$GITHUB_REF_NAME
-
-      - name: Cleanup Build Image
-        run: docker compose -f docker-compose.ci.yml down --remove-orphans
-      
       - name: Make Envfile
         uses: SpicyPizza/create-envfile@v2.0
         with:
@@ -50,10 +38,24 @@ jobs:
           directory: .
           file_name: prod.env
           fail_on_empty: true
-      
+        
       - name: Stop Current App
         run: docker compose -f docker-compose.deploy.yml down
+  
+      - name: Cleanup Build Image
+        run: docker rmi -f ${{ secrets.DOCKER_IMAGE }}:latest
+
+      - name: Retag Build Image
+        run: docker tag ${{ secrets.DOCKER_IMAGE }}:temp ${{ secrets.DOCKER_IMAGE }}:latest
 
       - name: New app start
         run: docker compose -f docker-compose.deploy.yml up -d
+
+      - name: Push build to docker
+        run: docker push ${{ secrets.DOCKER_IMAGE }}:latest
+
+      - name: Cleanup Build Image
+        run: docker rmi -f ${{ secrets.DOCKER_IMAGE }}:temp
+
+      
 
