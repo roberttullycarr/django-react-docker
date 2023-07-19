@@ -35,7 +35,7 @@ jobs:
         run: docker rmi -f $GITHUB_RUN_NUMBER:$GITHUB_REF_NAME
 
       - name: Cleanup Build Image
-        run: docker-compose -p $GITHUB_RUN_NUMBER -f docker-compose.ci.yml down --remove-orphans
+        run: docker compose -p $GITHUB_RUN_NUMBER -f docker-compose.ci.yml down --remove-orphans
       
       - name: Make Envfile
         uses: SpicyPizza/create-envfile@v2.0
