@@ -6,8 +6,7 @@ function App() {
   const [data, setData] = useState(null);
   const url = 'http://188.166.84.114/backend/todos/';
 
-  console.log('data :>> ', data);
-  console.log('url :>> ', url);
+  console.log("new version is live!");
 
   useEffect(() => {
     fetch(url)
