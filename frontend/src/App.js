@@ -6,7 +6,7 @@ function App() {
   const [data, setData] = useState(null);
   const url = 'http://188.166.84.114/backend/todos/';
 
-  console.log("This is to test how to create no downtime deployment");
+  console.log("this is to test a second deployment after the first succeeds");
 
   useEffect(() => {
     fetch(url)
