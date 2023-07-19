@@ -29,7 +29,7 @@ jobs:
         run: docker tag $GITHUB_RUN_NUMBER:$GITHUB_REF_NAME ${{ secrets.DOCKER_IMAGE }}:main
 
       - name: Push build to docker
-        run: docker push ${{ secrets.DOCKER_IMAGE }}:main .
+        run: docker push ${{ secrets.DOCKER_IMAGE }}:main
 
       - name: Cleanup Build Image
         run: docker rmi -f $GITHUB_RUN_NUMBER:$GITHUB_REF_NAME
