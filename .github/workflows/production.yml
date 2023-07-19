@@ -26,7 +26,7 @@ jobs:
         run: docker build --tag=$GITHUB_RUN_NUMBER:$GITHUB_REF_NAME --cache-from=${{ secrets.DOCKER_IMAGE }}:latest .
 
       - name: Retag Build Image
-        run: docker tag $GITHUB_RUN_NUMBER:$GITHUB_REF_NAME ${{ secrets.DOCKER_IMAGE }}:main .
+        run: docker tag $GITHUB_RUN_NUMBER:$GITHUB_REF_NAME ${{ secrets.DOCKER_IMAGE }}:main
 
       - name: Push build to docker
         run: docker push ${{ secrets.DOCKER_IMAGE }}:main .
